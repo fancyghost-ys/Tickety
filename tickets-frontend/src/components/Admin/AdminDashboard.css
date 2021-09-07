@@ -1,0 +1,23 @@
+.title{
+    color: #05386b;
+    font-family: 'Acme';
+    font-size: large;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-window{
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    padding: 1rem;
+    position: relative;
+    position: fixed;
+    left: 50%;
+    top: 60%;
+    width: 25vw;
+    transform: translate(-50%, -50%);}
+
+    
+  .btn-sub{
+    background-color: #5cdb95;
+}

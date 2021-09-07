@@ -1,0 +1,35 @@
+
+.menu-bar{
+    background-color: #05386B ;
+}
+.logo{
+    font-family: 'Acme';
+    color: rgb(234, 254, 255);
+}
+
+.nav-item{
+    font-family: 'ABeeZee';
+    font-size: large;
+}
+
+.img-profile{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+p{
+    display: flex;
+    align-self: center;
+    font-size: large;
+    color: rgb(170, 170, 170);
+}
+img{
+    display: flex;
+    align-self: center;
+    margin-right: 5px;
+    border-radius: 20px;
+}
