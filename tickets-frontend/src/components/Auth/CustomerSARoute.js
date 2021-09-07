@@ -6,7 +6,7 @@ const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuthenticated() && (isAuthenticated().user.role >= 2) ? (
+            isAuthenticated() && (isAuthenticated().user.role === 2) ? (
                 <Component {...props} />
             ) : (
                 <Redirect

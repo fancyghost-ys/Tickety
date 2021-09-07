@@ -45,8 +45,8 @@ exports.submitTicket = async (req, res) => {
 
 exports.listCustomerTicket = async (req, res, next) => {
     try {
-        await Ticket.find({ user: { $eq: req.params.id } }).exec((err, ticket) => {
-            if (err || !ticket) {
+        await Ticket.find({ user: { $eq: req.params.id } }).exec((err, tickets) => {
+            if (err || !tickets) {
                 return res.status(400).json({
                     message: 'tickets not found'
                 })
