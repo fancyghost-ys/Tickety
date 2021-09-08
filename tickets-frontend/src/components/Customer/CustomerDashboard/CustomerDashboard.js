@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../Auth/index';
-import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import { getAllMyTickets } from './apiCoreCustomer';
-import ViewList from '../Layouts/ViewList/ViewList'
+import { isAuthenticated } from '../../Auth/index';
+import Dashboard_Layout from '../../Layouts/Dashboard_Layout/Dashboard_Layout';
+import { getAllMyTickets } from '../apiCoreCustomer';
+import ViewList from '../../Layouts/ViewList/ViewList'
 import './CustomerDashboard.css'
 
 const CustomerDashboard = () => {
@@ -23,11 +22,7 @@ const CustomerDashboard = () => {
                             View All My Tickets
                         </button>
                     </li>
-                    <li className="list-group-item">
-                        <Link className="nav-link" to="/submit_ticket">
-                            Add Note Tickets
-                        </Link>
-                    </li>
+
                 </ul>
                 <div className="card mb-5">
                     <h3 className="card-header">Customer Information</h3>
@@ -45,7 +40,6 @@ const CustomerDashboard = () => {
                 console.log(data.error);
             }
             else {
-                console.log(data)
                 setTickets(data);
             }
         })

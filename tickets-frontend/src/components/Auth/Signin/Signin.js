@@ -17,21 +17,36 @@ const Signin = () => {
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value })
     }
+    const validateForm = (email, password) => {
+        if (email === '' || password === '' || password.length < 6) {
+            setValues({
+                error: `Validation Error \n
+                    Enter valid email and
+                    Password length more than 6`, success: false
+            })
+            return false
+        }
+        else {
+            return true
+        }
+    }
 
     const clickSubmit = async (event) => {
         event.preventDefault()
-        setValues({ ...values, error: false })
-        await signin({ email, password })
-            .then(data => {
-                if (data.error) {
-                    setValues({ ...values, error: data.error, success: false })
-                }
-                else {
-                    authenticate(data, () => {
-                        setValues({ ...values, redirect: true })
-                    })
-                }
-            })
+        if (validateForm(email, password)) {
+            setValues({ ...values, error: false })
+            await signin({ email, password })
+                .then(data => {
+                    if (data.error) {
+                        setValues({ ...values, error: data.error, success: false })
+                    }
+                    else {
+                        authenticate(data, () => {
+                            setValues({ ...values, redirect: true })
+                        })
+                    }
+                })
+        }
     }
     const showError = () => (
         <div className="alert alert-danger fs-6 h-1" height="4" style={{ display: error ? '' : 'none' }}>
@@ -82,13 +97,13 @@ const Signin = () => {
             <p class="mt-2 mb-1 fs-6 ">&copy; 2010–2021 Tickety</p>
         </form>
     )
-useEffect(()=>{
-    if(isAuthenticated){
-        signout(() => {
-            <App />
-        })
-    }
-},[])
+    useEffect(() => {
+        if (isAuthenticated) {
+            signout(() => {
+                <App />
+            })
+        }
+    }, [])
     return (
         <Auth HeaderPage="SignIn"
             Description="Welcome back!!"

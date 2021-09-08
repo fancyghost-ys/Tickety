@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../Auth';
-import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import { getAllUser, newTicket } from './apiAdminCore';
-
+import { isAuthenticated } from '../../Auth';
+import Dashboard_Layout from '../../Layouts/Dashboard_Layout/Dashboard_Layout';
+import { getAllUser, newTicket } from '../apiAdminCore';
+import '../AdminDashboard/AdminDashboard.css'
+import { Redirect } from 'react-router';
 const NewTicket = () => {
     const { token } = isAuthenticated()
     const [values, setValues] = useState({
@@ -15,8 +15,9 @@ const NewTicket = () => {
         loading: false,
         error: '',
         createdTicket: '',
-        redirectToProfile: false,
+        redirectTo: false,
     });
+
     const {
         title,
         status,
@@ -25,7 +26,7 @@ const NewTicket = () => {
         loading,
         error,
         createdTicket,
-        redirectToProfile,
+        redirectTo,
     } = values;
 
     const init = async () => {
@@ -50,6 +51,7 @@ const NewTicket = () => {
         setValues({ ...values, [name]: value });
     };
 
+
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
@@ -63,6 +65,7 @@ const NewTicket = () => {
                     status: '',
                     user: '',
                     loading: false,
+                    redirectTo: true,
                     createdTicket: data.name
                 });
             }
@@ -99,7 +102,10 @@ const NewTicket = () => {
                     <option value='Pending'>Pending</option>
                 </select>
             </div>
-            <button className="btn btn-outline-primary">Create Ticket</button>
+            {
+                <button className="btn btn-sub m-3">Create Ticket</button>
+
+            }
         </form>
     );
 
@@ -108,6 +114,11 @@ const NewTicket = () => {
             {error}
         </div>
     );
+    const redirectUser = () => {
+        if (redirectTo) {
+            return <Redirect to="/admin/dashboard" />;
+        }
+    };
 
     const showSuccess = () => (
         <div className="alert alert-info" style={{ display: createdTicket ? '' : 'none' }}>
@@ -128,6 +139,7 @@ const NewTicket = () => {
                     {showLoading()}
                     {showSuccess()}
                     {showError()}
+                    {redirectUser()}
                     {newPostForm()}
                 </div>
             </div>
@@ -138,7 +150,7 @@ const NewTicket = () => {
         <Dashboard_Layout
             HeaderPage="New Ticket"
             Description={`Create New Ticket`}
-            className="container-fluid"
+            className="form-window"
             childern={childFunction()}
         />
     );

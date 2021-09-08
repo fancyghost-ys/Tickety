@@ -3,7 +3,7 @@ import { isAuthenticated } from '../Auth/index';
 import { Redirect } from 'react-router-dom';
 import { getTicket, changeTicketStatus } from './apiCustomerSA';
 import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import './CustomerSADashboard.css'
+import '../CustomerSA/CustomeSADashboard/CustomerSADashboard.css'
 
 const CustomerEditTicket = ({ match }) => {
     const [values, setValues] = useState({
@@ -58,18 +58,15 @@ const CustomerEditTicket = ({ match }) => {
         <div className="form-window ">
             <form className="mb-5" onSubmit={submitTicketForm}>
                 <h4 className="login100-form-title p-b-32 m-b-7">Update Ticket Status</h4>
-                <br />
-                <br />
-                <span className="txt1 p-b-11">Ticket Name</span>
-                <div className="wrap- validate-input m-b-36">
-                    <input
-                        onChange={handleChange('status')}
-                        value={status}
-                        className="form-control"
-                        type="text"
-                        required
-                        name="name"
-                    />
+                <span className="mt-2 p-b-11">New Status</span>
+                <div className="wrap-validate-input mt-2 m-b-30">
+                    <label className="text-muted">Status</label>
+                    <select onChange={handleChange('status')} className="form-control">
+                        <option>Please select</option>
+                        <option value='Active'>Active</option>
+                        <option value='Closed'>Closed</option>
+                        <option value='Pending'>Pending</option>
+                    </select>
                 </div>
                 <div className="w-size25">
                     <button type="submit" className="w-100 btn btn-ls my-2 btn-sub">
@@ -113,7 +110,7 @@ const CustomerEditTicket = ({ match }) => {
         <Dashboard_Layout
             HeaderPage="Manage By agent"
             Description={`This is Update status Action Page`}
-            className="container-fluid"
+            className="container"
             childern={showForm()}
         />
 

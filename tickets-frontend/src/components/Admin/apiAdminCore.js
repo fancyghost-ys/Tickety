@@ -13,7 +13,7 @@ export const getUserById = (id, token) => {
         .then(response => {
             return response.json();
         })
-        .catch(err => console.log(err));
+        .catch(error => console.log(error));
 };
 
 export const getAllUser = (token) => {
@@ -28,7 +28,7 @@ export const getAllUser = (token) => {
         .then(response => {
             return response.json();
         })
-        .catch(err => console.log(err));
+        .catch(error => console.log(error.response.error));
 };
 
 export const deleteUser = (userId, token) => {
@@ -58,9 +58,24 @@ export const CountUsers = (token) => {
         .then(response => {
             return response.json();
         })
-        .catch(err => console.log(err));
+        .catch(error => console.log(error));
 };
 
+export const newUser = (user, token) => {
+    return fetch(`${API}/user/newAccount`, {
+        method: "POST",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(error => console.log(error));
+};
 
 /************************* Tickets  **********************/
 export const CountTickets = (token) => {
@@ -75,7 +90,7 @@ export const CountTickets = (token) => {
         .then(response => {
             return response.json();
         })
-        .catch(err => console.log(err));
+        .catch(error => console.log(error));
 };
 
 
@@ -96,19 +111,5 @@ export const newTicket = (ticket, token) => {
         .catch(error => console.log(error));
 };
 
-export const newUser = (user, token) => {
-    return fetch(`${API}/user/newAccount`, {
-        method: "POST",
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(user)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
+
 

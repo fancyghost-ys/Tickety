@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../Auth/index';
-import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import ViewListAgent from '../Layouts/ViewList/ViewListAgent'
-import { viewAllTickets } from './apiCustomerSA';
+import { isAuthenticated } from '../../Auth/index';
+import Dashboard_Layout from '../../Layouts/Dashboard_Layout/Dashboard_Layout';
+import ViewListAgent from '../../Layouts/ViewList/ViewListAgent'
+import { viewAllTickets } from '../apiCustomerSA';
 const CustomerSADashboard = () => {
     const [tickets, setTickets] = useState([])
     const [showViewListTicket, setshowViewListTicket] = useState(false)

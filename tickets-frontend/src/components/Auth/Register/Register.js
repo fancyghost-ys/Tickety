@@ -18,18 +18,36 @@ const Register = () => {
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value })
     }
+    const validateForm = (firstName, lastName, email, password) => {
+        if ((firstName === '' || lastName === '' || email === '' || password === '')
+            || password.length < 6) {
+            setValues({
+                error: `Validation Error
+                    Make sure the first/last name is not empty, email is valid 
+                    Password length more than 6`, success: false
+            })
+            return false
+        }
+        else {
+
+            return true
+        }
+    }
+
     const clickSubmit = async (event) => {
         event.preventDefault()
-        setValues({ ...values, error: false })
-        await signup({ firstName, lastName, email, password })
-            .then(data => {
-                if (data.error) {
-                    setValues({ ...values, error: data.error, success: false })
-                }
-                else {
-                    setValues({ ...values, firstName: '', lastName: '', email: '', password: '', error: '', success: true, redirectTo: true })
-                }
-            })
+        if (validateForm(firstName, lastName, email, password)) {
+            setValues({ ...values, error: false })
+            await signup({ firstName, lastName, email, password })
+                .then(data => {
+                    if (data.error) {
+                        setValues({ ...values, error: data.error, success: false })
+                    }
+                    else {
+                        setValues({ ...values, firstName: '', lastName: '', email: '', password: '', error: '', success: true, redirectTo: true })
+                    }
+                })
+        }
     }
     const showError = () => (
         <div className="alert alert-danger fs-6 h-1" height="4" style={{ display: error ? '' : 'none' }}>

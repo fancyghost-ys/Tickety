@@ -3,7 +3,6 @@ import moment from 'moment'
 import Moment from 'react-moment'
 import { isAuthenticated } from "../Auth/index";
 import { deleteUser, getAllUser } from "./apiAdminCore";
-import Menu from "../Layouts/Menu/Menu";
 
 const ViewUsers = () => {
     const [values, setValues] = useState([''])
@@ -36,11 +35,6 @@ const ViewUsers = () => {
     }
     return (
         <div className="contianer-fluid">
-            <Menu />
-            <div className="container">
-                <h1 >All Users Information</h1>
-                <p >Manage and View details by Admin only</p>
-            </div>
             <div className="row">
                 <div className="col-12">
                     <ul className="list-group">
@@ -59,9 +53,9 @@ const ViewUsers = () => {
                             values.AllUsers.map((u, i) => (
                                 <li
                                     key={i}
-                                    className="list-group-item d-flex"
-                                >
-                                    <p className="col">{u.id}</p>
+                                    className="list-group-item d-flex justify-content-between align-items-center">
+
+                                    <p class="col">{(u.id).substring(0, 10)}....</p>
                                     <p className="col">{u.firstName}</p>
                                     <p className="col">{u.lastName}</p>
                                     <p className="col">{u.email}</p>

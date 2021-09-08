@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Glory:wght@300&display=swap');
 
 body {
   margin: 0;
@@ -17,3 +17,8 @@ code {
     monospace;
 }
 
+p{
+  font-family: 'Glory';
+  font-size: large;
+  color: rgb(34, 33, 33);
+}

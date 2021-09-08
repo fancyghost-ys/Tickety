@@ -1,0 +1,31 @@
+.myTicket{
+    border-radius: 4px;
+    border: 4px solid #3d8a6d;
+    padding: 1rem;
+    position: relative;
+    position: fixed;
+    left: 50%;
+    top: 60%;
+    width: 50vw;
+    height: 60%;
+    transform: translate(-50%, -50%);
+    background-color: #acffcc;
+}
+.ticketHeader {
+    background: #3d8a6d;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    transform: skewY(-4deg);
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+    top: -1rem;
+    left: -0.75rem;
+  }
+  
+  .ticketBody {
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+  

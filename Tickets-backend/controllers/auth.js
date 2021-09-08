@@ -22,7 +22,7 @@ exports.signin = async (req, res) => {
     await User.findOne({ email }).then((user) => {
         if (!user) {
             return res.status(400).json({
-                message: 'User with this email does not exist. please signup'
+                error: 'User with this email does not exist. please signup'
             });
         }
         if (!user.authenicate(password)) {

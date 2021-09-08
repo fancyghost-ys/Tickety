@@ -44,3 +44,19 @@ export const submitTicket = (ticketId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const addNotesToTicket = (ticketId, token, data) => {
+    return fetch(`${API}/ticket/notes/${ticketId}`, {
+        method: "PUT",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

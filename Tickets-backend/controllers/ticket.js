@@ -10,10 +10,10 @@ exports.ticketById = async (req, res, next) => {
         await Ticket.findById(req.params.id).exec((err, ticket) => {
             if (err || !ticket) {
                 return res.status(400).json({
-                    message: 'ticket not found'
+                    error: 'ticket not found'
                 })
             }
-            res.status(200).json({ ticket });
+            res.status(200).json(ticket);
             next()
         })
     }
@@ -25,10 +25,10 @@ exports.ticketById = async (req, res, next) => {
 exports.submitTicket = async (req, res) => {
     const ticketExist = await Ticket.findById(req.params.id);
     if (!ticketExist) {
-        return res.status(404).json({ message: 'The ticket with the given Id was not found' })
+        return res.status(404).json({ error: 'The ticket with the given Id was not found' })
     }
     if (ticketExist.submit === true) {
-        return res.status(404).json({ message: 'The ticket already submit' })
+        return res.status(404).json({ error: 'The ticket already submit' })
     }
     const ticket = await Ticket.findByIdAndUpdate(
         req.params.id,
@@ -48,7 +48,7 @@ exports.listCustomerTicket = async (req, res, next) => {
         await Ticket.find({ user: { $eq: req.params.id } }).exec((err, tickets) => {
             if (err || !tickets) {
                 return res.status(400).json({
-                    message: 'tickets not found'
+                    error: 'tickets not found'
                 })
             }
             res.status(200).json({ tickets });
@@ -84,7 +84,7 @@ exports.listAllTicketsAndUsers= async (req, res, next) => {
             .exec((err, tickets) => {
                 if (err || !tickets) {
                     return res.status(400).json({
-                        message: 'tickets not found'
+                        error: 'tickets not found'
                     })
                 }
                 res.status(200).json({ tickets });
@@ -99,7 +99,7 @@ exports.listAllTicketsAndUsers= async (req, res, next) => {
 exports.changeTicketStatus = async (req, res) => {
     const ticketExist = await Ticket.findById(req.params.id);
     if (!ticketExist) {
-        return res.status(404).json({ message: 'The ticket with the given Id was not found' })
+        return res.status(404).json({ error: 'The ticket with the given Id was not found' })
     }
     const ticket = await Ticket.findByIdAndUpdate(
         req.params.id,
@@ -119,7 +119,7 @@ exports.changeTicketStatus = async (req, res) => {
 exports.countTickets = async (req, res) => {
         const ticketcount = await Ticket.countDocuments();
         if(!ticketcount){
-            res.status(500).json({message:'Something wrong in query'})
+            res.status(500).json({error:'Something wrong in query'})
         }
         res.json({ticketcount:ticketcount})
     }
@@ -152,12 +152,9 @@ exports.createNewTicket = async (req, res) => {
 exports.addNotesToTicket = async (req, res) => {
     const ticketExist = await Ticket.findById(req.params.id);
     if (!ticketExist) {
-        return res.status(404).json({ message: 'The ticket with the given Id was not found' })
+        return res.status(404).json({ error: 'The ticket with the given Id was not found' })
     }
-    const userId = await User.findById(req.params.userId);
-    if (!userId) {
-        return res.status(404).json({ message: 'The Writer Unkown.....' })
-    } 
+  
     const { write, note } = req.body;
     const ticket = await Ticket.findByIdAndUpdate(
         req.params.id,
@@ -173,7 +170,7 @@ exports.addNotesToTicket = async (req, res) => {
         { new: true }
     )
     if (!ticket) {
-        return res.status(400).json({ err: 'submit failed!' })
+        return res.status(400).json({ error: 'submit failed!' })
     }
 
     res.status(200).json({ ticket })

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../Auth';
-import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import { newUser } from './apiAdminCore';
-import './AdminDashboard.css'
+import { isAuthenticated } from '../../Auth';
+import Dashboard_Layout from '../../Layouts/Dashboard_Layout/Dashboard_Layout';
+import { newUser } from '../apiAdminCore';
+import '../AdminDashboard/AdminDashboard.css'
 
 const NewUser = () => {
     const { token } = isAuthenticated()
@@ -21,19 +21,36 @@ const NewUser = () => {
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value })
     }
+    const validateForm = (firstName, lastName, email, password) => {
+        if ((firstName === '' || lastName === '' || email === '' || password === '')
+            || password.length < 6) {
+            setValues({
+                error: `Validation Error
+                    Make sure the first/last name is not empty, email is valid 
+                    Password length more than 6`, success: false
+            })
+            return false
+        }
+        else {
+
+            return true
+        }
+    }
 
     const clickSubmit = async (event) => {
         event.preventDefault()
-        setValues({ ...values, error: false })
-        await newUser({ firstName, lastName, email, password }, token)
-            .then(data => {
-                if (data.error) {
-                    setValues({ ...values, error: data.error, success: false })
-                }
-                else {
-                    setValues({ ...values, firstName: '', lastName: '', email: '', password: '', error: '', success: true, redirectTo: true })
-                }
-            })
+        if (validateForm(firstName, lastName, email, password)) {
+            setValues({ ...values, error: false })
+            await newUser({ firstName, lastName, email, password }, token)
+                .then(data => {
+                    if (data.error) {
+                        setValues({ ...values, error: data.error, success: false })
+                    }
+                    else {
+                        setValues({ ...values, firstName: '', lastName: '', email: '', password: '', error: '', success: true, redirectTo: true })
+                    }
+                })
+        }
     }
     const showError = () => (
         <div className="alert alert-danger fs-6 h-1" height="4" style={{ display: error ? '' : 'none' }}>

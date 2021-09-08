@@ -9,12 +9,11 @@ const Dashboard_Layout = ({
     return (
         <div>
             <Menu />
-            <div className='container-fluid'>
+            <div className='container'>
                 <h2>{HeaderPage}</h2>
                 <p style={{ cursor: 'pointer', color: '#5cdb95' }}>{Description}</p>
             </div>
             <div className={className}>{childern}</div>
-
         </div>
 
     )

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../Auth/index';
-import Dashboard_Layout from '../Layouts/Dashboard_Layout/Dashboard_Layout';
-import ViewListAgent from '../Layouts/ViewList/ViewListAgent'
-import { viewAllTickets } from '../CustomerSA/apiCustomerSA';
-import { CountTickets, CountUsers } from './apiAdminCore';
+import { isAuthenticated } from '../../Auth/index';
+import Dashboard_Layout from '../../Layouts/Dashboard_Layout/Dashboard_Layout';
+import ViewListAgent from '../../Layouts/ViewList/ViewListAgent'
+import { viewAllTickets } from '../../CustomerSA/apiCustomerSA';
+import { CountTickets, CountUsers } from '../apiAdminCore';
+import ViewUsers from '../ViewUsers';
 import './AdminDashboard.css'
 
 const AdminDashboard = () => {
     const [tickets, setTickets] = useState([])
     const [showViewListTicket, setshowViewListTicket] = useState(false)
+    const [showViewUser, setshowViewUser] = useState(true)
     const [TicketsNo, setTicketsNo] = useState(0)
     const [UsersNo, setUsersNo] = useState(0)
     const {
@@ -51,9 +53,10 @@ const AdminDashboard = () => {
                 <h4 className="card-header">Admin Functions</h4>
                 <ul className="nav flex-column">
                     <li className="list-group-item">
-                        <button className="btn" onClick={() => setshowViewListTicket(true)}>
+                        <button className="btn" onClick={() => [setshowViewListTicket(true), setshowViewUser(false)]}>
                             View All Tickets
-                        </button>
+                            </button>
+
                     </li>
                     <li className="list-group-item">
                         <Link className="btn" to="/admin/createTicket">
@@ -66,9 +69,11 @@ const AdminDashboard = () => {
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link className="btn" to='/admin/viewUsers'>
-                            View All Users
-                        </Link>
+
+                        <button className="btn" onClick={() => [setshowViewUser(true), setshowViewListTicket(false)]}>
+                            View All User
+                               </button>
+
                     </li>
                 </ul>
                 <div className="card mb-5">
@@ -104,7 +109,10 @@ const AdminDashboard = () => {
                     <div className="col-3">{AdminFunctions()}</div>
                     <div className="col-9">{
                         showViewListTicket && <ViewListAgent tickets={tickets} />
-                    }</div>
+                    }
+
+                        {showViewUser && <ViewUsers />
+                        }</div>
                 </div>
             </div>
         )
