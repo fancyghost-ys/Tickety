@@ -88,8 +88,12 @@ const CustomerEditTicket = ({ match }) => {
 
     const redirectUser = () => {
         if (redirectToProfile) {
-            if (!error) {
+            if (!error && user.role === 2) {
                 return <Redirect to="/customersa/dashboard" />;
+            }
+
+            if (!error && user.role === 3) {
+                return <Redirect to="/admin/dashboard" />;
             }
         }
     };
